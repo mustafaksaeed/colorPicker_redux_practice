@@ -1,6 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { picker } from "./Store/Store.jsx";
+
 import ColorChange from "./Components/ColorChange";
 const App = () => {
+  const [color, setColor] = useState("red");
+
+  const colorVal = useSelector((state) => state.color.color);
+  const dispatch = useDispatch();
+
+  function ColorChange() {
+    dispatch(picker(color));
+  }
+
+  console.log("colorVal", colorVal);
   return (
     <div
       style={{
@@ -11,7 +24,7 @@ const App = () => {
       }}
     >
       <h1>Color Changer </h1>
-      <ColorChange input="red" />
+      <ColorChange input={color} />
       <div
         className="InputChange"
         style={{
@@ -21,7 +34,11 @@ const App = () => {
           gap: "1rem",
         }}
       >
-        <input type="text" placeHolder="Choose a color" />
+        <input
+          type="text"
+          placeHolder="Choose a color"
+          onChange={(e) => setColor(e.target.value)}
+        />
         <button>Random Color Picker</button>
       </div>
     </div>

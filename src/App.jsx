@@ -24,7 +24,7 @@ const App = () => {
     ];
     let randomIndex = Math.floor(Math.random() * colArray.length);
     let a = colArray[randomIndex];
-    dispatch(a);
+    dispatch(picker(a));
   }
   return (
     <div

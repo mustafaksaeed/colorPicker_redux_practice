@@ -1,19 +1,33 @@
-import React, { useState } from "react";
+import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { picker } from "./Store/Store.jsx";
+import { picker } from "./Store/Slice.jsx";
 
 import ColorChange from "./Components/ColorChange";
 const App = () => {
-  const [color, setColor] = useState("red");
-
   const colorVal = useSelector((state) => state.color.color);
   const dispatch = useDispatch();
 
-  function ColorChange() {
-    dispatch(picker(color));
-  }
-
   console.log("colorVal", colorVal);
+
+  function randomCol() {
+    let colArray = [
+      "#a349a4",
+      "red",
+      "#00ced1",
+      "forestgreen",
+      "#ff69b4",
+      "orange",
+      "#8fbc8f",
+      "yellow",
+      "#4682b4",
+      "magenta",
+    ];
+
+    let randomIndex = Math.floor(Math.random() * colArray.length);
+    let a = colArray[randomIndex];
+    console.log("Dispatching random color:", a);
+    dispatch(picker(a));
+  }
   return (
     <div
       style={{
@@ -24,7 +38,7 @@ const App = () => {
       }}
     >
       <h1>Color Changer </h1>
-      <ColorChange input={color} />
+      <ColorChange input={colorVal.length === 0 ? "red" : colorVal} />
       <div
         className="InputChange"
         style={{
@@ -37,19 +51,12 @@ const App = () => {
         <input
           type="text"
           placeHolder="Choose a color"
-          onChange={(e) => setColor(e.target.value)}
+          onChange={(e) => dispatch(picker(e.target.value))}
         />
-        <button>Random Color Picker</button>
+        <button onClick={() => randomCol()}>Random Color Picker</button>
       </div>
     </div>
   );
 };
-
-// function ColorChanger(input){
-//   dispatch({
-//     text:input
-//     color:
-//   })
-// }
 
 export default App;

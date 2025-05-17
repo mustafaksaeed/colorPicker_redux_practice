@@ -22,11 +22,9 @@ const App = () => {
       "#4682b4",
       "magenta",
     ];
-
     let randomIndex = Math.floor(Math.random() * colArray.length);
     let a = colArray[randomIndex];
-    console.log("Dispatching random color:", a);
-    dispatch(picker(a));
+    dispatch(a);
   }
   return (
     <div
